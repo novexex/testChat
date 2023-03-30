@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Functions.swift
 //  testChat
 //
 //  Created by Artour Ilyasov on 29.03.2023.
@@ -14,6 +14,7 @@ func countryFlag(_ countryCode: String) -> String {
         .unicodeScalars
         .compactMap({ UnicodeScalar(flagBase + $0.value)?.description })
         .joined()
+    
     return flag
 }
 
@@ -21,8 +22,11 @@ func checkAuthCode(_ phoneNumber: String, _ code: String, completion: @escaping 
     let url = URL(string: "https://plannerok.ru/api/v1/users/check-auth-code/")!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    let body: [String: Any] = ["phone": phoneNumber, "code": code]
-    request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+    let body = [
+        "phone": phoneNumber,
+        "code": code
+    ]
+    request.httpBody = try? JSONSerialization.data(withJSONObject: body)
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {
@@ -33,54 +37,40 @@ func checkAuthCode(_ phoneNumber: String, _ code: String, completion: @escaping 
             print("Invalid data or response")
             return
         }
-        if response.statusCode == 200 {
-            // успешный запрос, получаем данные
+        if response.statusCode == 200 { // successs response
             guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
                 print("Invalid data format")
                 return
             }
             let refreshToken = jsonData["refresh_token"] as? String
             let accessToken = jsonData["access_token"] as? String
-//            let userId = jsonData["user_id"] as? Int
             let isUserExists = jsonData["is_user_exists"] as? Bool
-            if isUserExists == true {
+            if isUserExists == true { // user is registered
                 completion(true)
-                
                 UserDefaults.standard.string(forKey: "refresh_token")
                 UserDefaults.standard.set(refreshToken, forKey: "refresh_token")
-                
                 UserDefaults.standard.string(forKey: "access_token")
                 UserDefaults.standard.set(accessToken, forKey: "access_token")
-            } else {
+            } else { // user is not registered
                 completion(false)
             }
-        } else {
-            // ошибка при запросе
+        } else { // error response
             print("Status code: \(response.statusCode)")
         }
     }.resume()
 }
 
 func registerUser(_ phone: String, _ name: String, _ username: String, completion: @escaping (Int) -> Void) {
-    // Создание URL из строки
     let url = URL(string: "https://plannerok.ru/api/v1/users/register/")!
-    
-    // Создание запроса
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    
-    // Создание тела запроса из параметров
-    let parameters = [
+    let body = [
         "phone": phone,
         "name": name,
         "username": username
     ]
-    request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
-    
-    // Установка заголовков запроса
+    request.httpBody = try? JSONSerialization.data(withJSONObject: body)
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    // Отправка запроса
     URLSession.shared.dataTask(with: request) { (data, response, error) in
         if let error = error {
             print("Error: \(error)")
@@ -90,10 +80,10 @@ func registerUser(_ phone: String, _ name: String, _ username: String, completio
             print("Invalid data or response")
             return
         }
-        if response.statusCode == 201 {
+        if response.statusCode == 201 { // successs response
             print("User successfuly registered")
             completion(response.statusCode)
-        } else {
+        } else { // error response
             print("Status code: \(response.statusCode)")
             completion(response.statusCode)
         }
@@ -111,5 +101,3 @@ func validateUsername(_ username: String) -> Bool {
     let usernameTest = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
     return usernameTest.evaluate(with: username)
 }
-
-
