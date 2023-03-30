@@ -8,34 +8,32 @@
 import SwiftUI
 
 struct ProfileView: View {
-    //    let user = User(name: "Ivan Ivanov", city: "Moscow", phone: "+7 (999) 123-45-67", dateOfBirth: Date(), aboutMe: "I like to do sports and read books.")
-    
     let user: UserProfile?
     
     var body: some View {
         ScrollView {
             if let user {
                 VStack(spacing: 20) {
-                    // Аватар пользователя
-                    Image("avatar")
+                    // avatar
+                    Image(systemName: "person.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 120, height: 120)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                     
-                    // Имя, никнейм и номер телефона
+                    // name, nickname and phone number
                     VStack(spacing: 10) {
                         Text(user.name)
                             .font(.custom("Roboto-Bold", size: 28))
-                        Text(user.username)
-                            .font(.custom("Roboto-Bold", size: 28))
-                        Text(user.phone)
+                        Text("@\(user.username)")
+                            .font(.custom("Roboto-Regular", size: 20))
+                        Text(format(phoneNumber: user.phone))
                             .font(.custom("Roboto-Bold", size: 20))
                             .foregroundColor(.gray)
                     }
                     
-                    // Город проживания и дата рождения
+                    // city and birthday
                     VStack(spacing: 10) {
                         if let city = user.city {
                             HStack {
@@ -55,21 +53,10 @@ struct ProfileView: View {
                             .padding(.leading, 10)
                         }
                     }.padding(10)
-                    
-                    //                VStack(spacing: 10) {
-                    //                    // О себе
-                    //                    Text("About me:")
-                    //                        .font(.custom("Roboto-Medium", size: 20))
-                    //                    Text(user.aboutMe)
-                    //                        .font(.custom("Roboto-Regular", size: 20))
-                    //                        .multilineTextAlignment(.center)
-                    //                }
                     Spacer()
                 }
                 .padding()
             }
         }
-        .navigationBarTitle("Профиль")
     }
 }
-

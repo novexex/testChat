@@ -26,20 +26,18 @@ class UserViewModel: ObservableObject {
                 return
             }
             
-            if let httpResponse = response as? HTTPURLResponse {
-                print("Status code: \(httpResponse.statusCode)")
-            }
-            
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             
-            do {
-                let profileData = try decoder.decode(ProfileData.self, from: data)
-                DispatchQueue.main.async {
-                    self.user = profileData.profileData
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                do {
+                    let profileData = try decoder.decode(ProfileData.self, from: data)
+                    DispatchQueue.main.async {
+                        self.user = profileData.profileData
+                    }
+                } catch {
+                    print(error.localizedDescription)
                 }
-            } catch {
-                print(error.localizedDescription)
             }
         }.resume()
     }

@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import PhoneNumberKit
+
+// TODO: Обернуть все функции по работе с сетью в NetworkService
 
 func countryFlag(_ countryCode: String) -> String {
     let flagBase = UnicodeScalar("🇦").value - UnicodeScalar("A").value
@@ -146,6 +149,18 @@ func getZodiacSign(_ stringDate: String) -> String {
     case 12:
         return day <= 21 ? "Sagittarius" : "Capricorn"
     default:
+        return ""
+    }
+}
+
+func format(phoneNumber: String) -> String {
+    let phoneNumberKit = PhoneNumberKit()
+    do {
+        let phoneNumber = try phoneNumberKit.parse(phoneNumber)
+        let formattedString = phoneNumberKit.format(phoneNumber, toType: .international)
+        return formattedString
+    } catch {
+        print(error.localizedDescription)
         return ""
     }
 }

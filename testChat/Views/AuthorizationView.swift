@@ -3,21 +3,17 @@ import PhoneNumberKit
 import Combine
 
 struct AuthorizationView: View {
-
+    
     @State private var selectedCountry = Locale.current.regionCode ?? "RU"
     @State private var phoneNumber = ""
     @State private var showingAlert = false
-    @State private var isConfirmationCodePresented = false
-    private var phoneNumberKit = PhoneNumberKit() {
-        didSet {
-            guard let countryCode = phoneNumberKit.countryCode(for: selectedCountry) else { return }
-            phoneNumber = "+" + String(countryCode)
-        }
-    }
+    @State var isConfirmationCodePresented = false
+    private let phoneNumberKit = PhoneNumberKit()
     lazy var partialFormatter = PartialFormatter(phoneNumberKit: PhoneNumberKit(), defaultRegion: selectedCountry)
-
+    
     var body: some View {
         VStack {
+            // list of countrys with flags
             Picker("", selection: $selectedCountry) {
                 ForEach(Locale.isoRegionCodes, id: \.self) { countryCode in
                     let country = Locale.current.localizedString(forRegionCode: countryCode)
@@ -30,7 +26,8 @@ struct AuthorizationView: View {
             }
             .overlay(RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray, lineWidth: 1))
-
+            
+            // field where we enter phone number
             TextField("Phone Number", text: $phoneNumber)
                 .keyboardType(.phonePad)
                 .padding()
@@ -39,15 +36,14 @@ struct AuthorizationView: View {
                 .padding()
                 .font(.custom("Roboto-Light", size: 20))
                 .frame(width: 300, height: 75, alignment: .center)
-
+            
+            // log in button
             Button {
-                do {
-                    let phoneNumber = try phoneNumberKit.parse(self.phoneNumber)
-                    let formattedString = phoneNumberKit.format(phoneNumber, toType: .international)
-                    self.phoneNumber = formattedString
-                    sendAuthCode(self.phoneNumber)
-                } catch {
+                phoneNumber = format(phoneNumber: self.phoneNumber)
+                if phoneNumber.isEmpty {
                     showingAlert = true
+                } else {
+                    self.sendAuthCode(self.phoneNumber)
                 }
             } label: {
                 Text("Log in")
@@ -70,31 +66,6 @@ struct AuthorizationView: View {
         .sheet(isPresented: $isConfirmationCodePresented) {
             ConfirmationCodeView(isPresented: $isConfirmationCodePresented, phoneNumber: phoneNumber)
         }
-    }
-
-
-    private func sendAuthCode(_ phoneNumber: String) {
-        let url = URL(string: "https://plannerok.ru/api/v1/users/send-auth-code/")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let body: [String: Any] = ["phone": phoneNumber]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-            guard let response = response as? HTTPURLResponse else {
-                print("Invalid data or response")
-                return
-            }
-            if response.statusCode == 201 { // successs response
-                isConfirmationCodePresented = true
-            } else {  // error response
-                print("Status code: \(response.statusCode)")
-            }
-        }.resume()
     }
 }
 
