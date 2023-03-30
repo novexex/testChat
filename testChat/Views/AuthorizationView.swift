@@ -89,13 +89,9 @@ struct AuthorizationView: View {
                 print("Invalid data or response")
                 return
             }
-            if response.statusCode == 201 {
-                // успешный запрос, продолжаем
-                DispatchQueue.main.async {
-                    isConfirmationCodePresented = true
-                }
-            } else {
-                // ошибка при запросе
+            if response.statusCode == 201 { // successs response
+                isConfirmationCodePresented = true
+            } else {  // error response
                 print("Status code: \(response.statusCode)")
             }
         }.resume()
@@ -107,6 +103,7 @@ struct ConfirmationCodeView: View {
     @State private var registrationView = false
     @State private var code: String = "133337"
     @State private var isRegistration = false
+    @State private var isAuth = false
     var phoneNumber: String
     
     var body: some View {
@@ -133,7 +130,7 @@ struct ConfirmationCodeView: View {
                     
                     checkAuthCode(phoneNumber, code) { response in
                         if response {
-                            print("auth")
+                            isAuth = true
                         } else {
                             isRegistration = true
                         }
@@ -148,6 +145,9 @@ struct ConfirmationCodeView: View {
                 }
                 .fullScreenCover(isPresented: $isRegistration) {
                     RegistrationView(phoneNumber: phoneNumber)
+                }
+                .fullScreenCover(isPresented: $isAuth) {
+                    MainView()
                 }
                 
             }.padding()

@@ -19,7 +19,7 @@ func countryFlag(_ countryCode: String) -> String {
 }
 
 func checkAuthCode(_ phoneNumber: String, _ code: String, completion: @escaping (Bool) -> Void) {
-    let url = URL(string: "https://plannerok.ru/api/v1/users/check-auth-code/")!
+    guard let url = URL(string: "https://plannerok.ru/api/v1/users/check-auth-code/") else { return }
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     let body = [
@@ -33,7 +33,7 @@ func checkAuthCode(_ phoneNumber: String, _ code: String, completion: @escaping 
             print("Error: \(error)")
             return
         }
-        guard let data = data, let response = response as? HTTPURLResponse else {
+        guard let data, let response = response as? HTTPURLResponse else {
             print("Invalid data or response")
             return
         }
@@ -46,11 +46,8 @@ func checkAuthCode(_ phoneNumber: String, _ code: String, completion: @escaping 
             let accessToken = jsonData["access_token"] as? String
             let isUserExists = jsonData["is_user_exists"] as? Bool
             if isUserExists == true { // user is registered
+                saveTokens(refreshToken, accessToken)
                 completion(true)
-                UserDefaults.standard.string(forKey: "refresh_token")
-                UserDefaults.standard.set(refreshToken, forKey: "refresh_token")
-                UserDefaults.standard.string(forKey: "access_token")
-                UserDefaults.standard.set(accessToken, forKey: "access_token")
             } else { // user is not registered
                 completion(false)
             }
@@ -61,7 +58,7 @@ func checkAuthCode(_ phoneNumber: String, _ code: String, completion: @escaping 
 }
 
 func registerUser(_ phone: String, _ name: String, _ username: String, completion: @escaping (Int) -> Void) {
-    let url = URL(string: "https://plannerok.ru/api/v1/users/register/")!
+    guard let url = URL(string: "https://plannerok.ru/api/v1/users/register/") else { return }
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     let body = [
@@ -76,11 +73,19 @@ func registerUser(_ phone: String, _ name: String, _ username: String, completio
             print("Error: \(error)")
             return
         }
-        guard let response = response as? HTTPURLResponse else {
+        guard let data, let response = response as? HTTPURLResponse else {
             print("Invalid data or response")
             return
         }
         if response.statusCode == 201 { // successs response
+            guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                print("Invalid data format")
+                return
+            }
+            let refreshToken = jsonData["refresh_token"] as? String
+            let accessToken = jsonData["access_token"] as? String
+            saveTokens(refreshToken, accessToken)
+            
             print("User successfuly registered")
             completion(response.statusCode)
         } else { // error response
@@ -88,6 +93,11 @@ func registerUser(_ phone: String, _ name: String, _ username: String, completio
             completion(response.statusCode)
         }
     }.resume()
+}
+
+func saveTokens(_ refreshToken: String?, _ accessToken: String?) {
+    UserDefaults.standard.set(refreshToken, forKey: "refresh_token")
+    UserDefaults.standard.set(accessToken, forKey: "access_token")
 }
 
 func validateName(_ name: String) -> Bool {
@@ -100,4 +110,42 @@ func validateUsername(_ username: String) -> Bool {
     let usernameRegEx = "^[A-Za-z0-9-_]*$"
     let usernameTest = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
     return usernameTest.evaluate(with: username)
+}
+
+func getZodiacSign(_ stringDate: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    guard let dateOfBirth = dateFormatter.date(from: stringDate) else { return "" }
+    
+    let calendar = Calendar.current
+    let month = calendar.component(.month, from: dateOfBirth)
+    let day = calendar.component(.day, from: dateOfBirth)
+    switch month {
+    case 1:
+        return day <= 19 ? "Capricorn" : "Aquarius"
+    case 2:
+        return day <= 18 ? "Aquarius" : "Fish"
+    case 3:
+        return day <= 20 ? "Fish" : "Aries"
+    case 4:
+        return day <= 19 ? "Aries" : "Taurus"
+    case 5:
+        return day <= 20 ? "Taurus" : "Gemini"
+    case 6:
+        return day <= 20 ? "Gemini" : "Cancer"
+    case 7:
+        return day <= 22 ? "Cancer" : "Leo"
+    case 8:
+        return day <= 22 ? "Leo" : "Virgo"
+    case 9:
+        return day <= 22 ? "Virgo" : "Scales"
+    case 10:
+        return day <= 22 ? "Scales" : "Scorpio"
+    case 11:
+        return day <= 21 ? "Scorpio" : "Sagittarius"
+    case 12:
+        return day <= 21 ? "Sagittarius" : "Capricorn"
+    default:
+        return ""
+    }
 }
