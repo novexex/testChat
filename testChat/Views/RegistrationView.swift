@@ -75,7 +75,7 @@ struct RegistrationView: View {
                 }
                 
                 if validation == 2 {
-                    registerUser(phoneNumber, name, username) { response in
+                    NetworkService.registerUser(phoneNumber, name, username) { response in
                         if response == 400 {
                             activeAlert = .usernameExists
                             showAlert = true

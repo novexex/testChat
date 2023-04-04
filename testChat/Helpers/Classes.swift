@@ -14,9 +14,8 @@ class UserViewModel: ObservableObject {
         guard let url = URL(string: "https://plannerok.ru/api/v1/users/me/") else { return }
         var request = URLRequest(url: url)
         
-        guard let accessToken = UserDefaults.standard.string(forKey: "access_token") else { return }
+        let bearerToken = NetworkService.getBearerAccessToken()
         
-        let bearerToken = "Bearer " + accessToken
         request.addValue(bearerToken, forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         

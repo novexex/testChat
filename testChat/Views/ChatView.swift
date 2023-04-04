@@ -7,24 +7,7 @@
 
 import SwiftUI
 
-struct Chat: Identifiable {
-    let id: Int
-    let title: String
-    let image: String
-    let lastMessage: String
-}
-
-struct ChatDetailView: View {
-    let chat: Chat
-    
-    var body: some View {
-        Text("Детали чата \(chat.title)")
-    }
-}
-
-
 struct ChatView: View {
-    
     let chats = [
         Chat(id: 1, title: "John", image: "person.circle", lastMessage: "You: Ferrars all spirits his imagine effects amongst neither. It bachelor cheerful of mistaken."),
         Chat(id: 2, title: "Sam", image: "person.circle", lastMessage: "Do play they miss give so up. Words to up style of since world."),
@@ -36,9 +19,6 @@ struct ChatView: View {
         Chat(id: 8, title: "Travis", image: "person.circle", lastMessage: "I took the Wook to Poland"),
         Chat(id: 9, title: "Noah", image: "person.circle", lastMessage: "Esteems met joy attempt way clothes yet demesne tedious.")
     ]
-    
-// MARK: Known bugs: navview ignores top safe area
-
     
     var body: some View {
         NavigationView {
@@ -70,6 +50,9 @@ struct ChatView: View {
                 }
             }
             .padding(-18)
+            .padding(.top, -18)
+            .navigationTitle("Chats")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

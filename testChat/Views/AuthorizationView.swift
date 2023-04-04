@@ -3,7 +3,6 @@ import PhoneNumberKit
 import Combine
 
 struct AuthorizationView: View {
-    
     @State private var selectedCountry = Locale.current.regionCode ?? "RU"
     @State private var phoneNumber = ""
     @State private var showingAlert = false
@@ -64,67 +63,12 @@ struct AuthorizationView: View {
             phoneNumber = "+" + String(countryCode)
         }
         .sheet(isPresented: $isConfirmationCodePresented) {
-            ConfirmationCodeView(isPresented: $isConfirmationCodePresented, phoneNumber: phoneNumber)
+            ConfirmationCodeView(phoneNumber: phoneNumber)
         }
     }
 }
 
-struct ConfirmationCodeView: View {
-    @Binding var isPresented: Bool
-    @State private var registrationView = false
-    @State private var code: String = "133337"
-    @State private var isRegistration = false
-    @State private var isAuth = false
-    var phoneNumber: String
-    
-    var body: some View {
-        ZStack {
-            Color(.white).ignoresSafeArea()
-            VStack {
-                Text("Enter confirmation code")
-                    .font(.custom("Roboto-Light", size: 25))
-                    .padding()
-                
-                TextField("Code", text: $code)
-                    .padding()
-                    .keyboardType(.phonePad)
-                    .overlay(RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray, lineWidth: 1))
-                    .font(.custom("Roboto-Light", size: 20))
-                    .frame(width: 200, height: 50)
-                    .padding(.bottom, 10)
-                
-                Button(action: {
-                    if code.count != 6 || !code.allSatisfy({ $0.isNumber }) {
-                        return
-                    }
-                    
-                    checkAuthCode(phoneNumber, code) { response in
-                        if response {
-                            isAuth = true
-                        } else {
-                            isRegistration = true
-                        }
-                    }
-                    
-                }) {
-                    Text("Verify")
-                        .padding()
-                        .frame(width: 200, height: 50)
-                        .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.gray, lineWidth: 1))
-                }
-                .fullScreenCover(isPresented: $isRegistration) {
-                    RegistrationView(phoneNumber: phoneNumber)
-                }
-                .fullScreenCover(isPresented: $isAuth) {
-                    MainView()
-                }
-                
-            }.padding()
-        }
-    }
-}
+
 
 struct AuthorizationView_Previews: PreviewProvider {
     static var previews: some View {

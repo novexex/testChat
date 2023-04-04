@@ -28,9 +28,3 @@ struct MainView: View {
         userViewModel.fetchUser()
     }
 }
-
-//struct MainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainView()
-//    }
-//}

@@ -31,4 +31,16 @@ extension AuthorizationView {
             }
         }.resume()
     }
+    
+    func countryFlag(_ countryCode: String) -> String {
+        let flagBase = UnicodeScalar("🇦").value - UnicodeScalar("A").value
+        let flag = countryCode
+            .uppercased()
+            .unicodeScalars
+            .compactMap({ UnicodeScalar(flagBase + $0.value)?.description })
+            .joined()
+        
+        return flag
+    }
 }
+

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     let user: UserProfile?
+    @State private var isEdit = false
     
     var body: some View {
         ScrollView {
@@ -53,7 +54,28 @@ struct ProfileView: View {
                             .padding(.leading, 10)
                         }
                     }.padding(10)
+                    
+                    if let status = user.status {
+                        VStack(spacing: 10) {
+                            Text("About me:")
+                                .font(.custom("Roboto-Medium", size: 20))
+                            Text(status)
+                                .font(.custom("Roboto-Regular", size: 20))
+                                .multilineTextAlignment(.center)
+                        }
+                    }
+                    
                     Spacer()
+                    
+                    Button("Edit") {
+                        isEdit = true
+                    }
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 1))
+                    .sheet(isPresented: $isEdit) {
+                        EditProfileView(name: user.name, city: user.city ?? "", birthday: getDate(user.birthday ?? ""), username: user.username, aboutMe: user.status ?? "")
+                    }
                 }
                 .padding()
             }

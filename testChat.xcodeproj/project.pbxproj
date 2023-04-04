@@ -13,7 +13,7 @@
 		EB9CB17E29D5EB1F0002596C /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9CB17D29D5EB1F0002596C /* ChatView.swift */; };
 		EB9CB18029D5EB270002596C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9CB17F29D5EB270002596C /* ProfileView.swift */; };
 		EB9CB18229D5F1B00002596C /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9CB18129D5F1B00002596C /* Enums.swift */; };
-		EB9CB18729D5FFF50002596C /* ProfileDataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9CB18629D5FFF50002596C /* ProfileDataEntity.swift */; };
+		EB9CB18729D5FFF50002596C /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9CB18629D5FFF50002596C /* ProfileData.swift */; };
 		EBC47C6D29D4862E0022383F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC47C6C29D4862E0022383F /* Functions.swift */; };
 		EBC6262629D324D200828166 /* testChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6262529D324D200828166 /* testChatApp.swift */; };
 		EBC6262829D324D200828166 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6262729D324D200828166 /* AuthorizationView.swift */; };
@@ -21,6 +21,12 @@
 		EBC6262D29D324D400828166 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC6262C29D324D400828166 /* Preview Assets.xcassets */; };
 		EBE1ECB229D6481B00DAB0B0 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECB129D6481B00DAB0B0 /* Classes.swift */; };
 		EBE1ECB429D64A4400DAB0B0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECB329D64A4400DAB0B0 /* Extensions.swift */; };
+		EBE1ECB629D71D0C00DAB0B0 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECB529D71D0C00DAB0B0 /* NetworkService.swift */; };
+		EBE1ECBB29D720C100DAB0B0 /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECBA29D720C100DAB0B0 /* Structures.swift */; };
+		EBE1ECBD29D720FA00DAB0B0 /* ChatDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECBC29D720FA00DAB0B0 /* ChatDetailView.swift */; };
+		EBE1ECBF29D7216600DAB0B0 /* ConfirmationCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECBE29D7216600DAB0B0 /* ConfirmationCodeView.swift */; };
+		EBE1ECC129D7273200DAB0B0 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECC029D7273200DAB0B0 /* EditProfileView.swift */; };
+		EBE1ECC329D73F9400DAB0B0 /* UserUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECC229D73F9400DAB0B0 /* UserUpdateRequest.swift */; };
 		EBFA3D7229D332EA00FD99A3 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBFA3D6629D332EA00FD99A3 /* Roboto-Bold.ttf */; };
 		EBFA3D7329D332EA00FD99A3 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBFA3D6729D332EA00FD99A3 /* Roboto-Medium.ttf */; };
 		EBFA3D7429D332EA00FD99A3 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBFA3D6829D332EA00FD99A3 /* Roboto-MediumItalic.ttf */; };
@@ -44,7 +50,7 @@
 		EB9CB17D29D5EB1F0002596C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		EB9CB17F29D5EB270002596C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		EB9CB18129D5F1B00002596C /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
-		EB9CB18629D5FFF50002596C /* ProfileDataEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataEntity.swift; sourceTree = "<group>"; };
+		EB9CB18629D5FFF50002596C /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		EBC47C6C29D4862E0022383F /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		EBC6262229D324D200828166 /* testChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC6262529D324D200828166 /* testChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testChatApp.swift; sourceTree = "<group>"; };
@@ -53,6 +59,12 @@
 		EBC6262C29D324D400828166 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EBE1ECB129D6481B00DAB0B0 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		EBE1ECB329D64A4400DAB0B0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		EBE1ECB529D71D0C00DAB0B0 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		EBE1ECBA29D720C100DAB0B0 /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
+		EBE1ECBC29D720FA00DAB0B0 /* ChatDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailView.swift; sourceTree = "<group>"; };
+		EBE1ECBE29D7216600DAB0B0 /* ConfirmationCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCodeView.swift; sourceTree = "<group>"; };
+		EBE1ECC029D7273200DAB0B0 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		EBE1ECC229D73F9400DAB0B0 /* UserUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateRequest.swift; sourceTree = "<group>"; };
 		EBFA3D6629D332EA00FD99A3 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		EBFA3D6729D332EA00FD99A3 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		EBFA3D6829D332EA00FD99A3 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
@@ -105,6 +117,9 @@
 				EB9CB17B29D5EAF30002596C /* MainView.swift */,
 				EB9CB17D29D5EB1F0002596C /* ChatView.swift */,
 				EB9CB17F29D5EB270002596C /* ProfileView.swift */,
+				EBE1ECBC29D720FA00DAB0B0 /* ChatDetailView.swift */,
+				EBE1ECBE29D7216600DAB0B0 /* ConfirmationCodeView.swift */,
+				EBE1ECC029D7273200DAB0B0 /* EditProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -129,9 +144,12 @@
 			children = (
 				EBC47C6C29D4862E0022383F /* Functions.swift */,
 				EB9CB18129D5F1B00002596C /* Enums.swift */,
-				EB9CB18629D5FFF50002596C /* ProfileDataEntity.swift */,
+				EB9CB18629D5FFF50002596C /* ProfileData.swift */,
 				EBE1ECB129D6481B00DAB0B0 /* Classes.swift */,
 				EBE1ECB329D64A4400DAB0B0 /* Extensions.swift */,
+				EBE1ECB529D71D0C00DAB0B0 /* NetworkService.swift */,
+				EBE1ECBA29D720C100DAB0B0 /* Structures.swift */,
+				EBE1ECC229D73F9400DAB0B0 /* UserUpdateRequest.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -332,14 +350,20 @@
 			files = (
 				EB9CB17829D4BCE90002596C /* RegistrationView.swift in Sources */,
 				EBC6262829D324D200828166 /* AuthorizationView.swift in Sources */,
+				EBE1ECC129D7273200DAB0B0 /* EditProfileView.swift in Sources */,
+				EBE1ECBF29D7216600DAB0B0 /* ConfirmationCodeView.swift in Sources */,
+				EBE1ECBB29D720C100DAB0B0 /* Structures.swift in Sources */,
 				EBC47C6D29D4862E0022383F /* Functions.swift in Sources */,
-				EB9CB18729D5FFF50002596C /* ProfileDataEntity.swift in Sources */,
+				EB9CB18729D5FFF50002596C /* ProfileData.swift in Sources */,
 				EB9CB17C29D5EAF30002596C /* MainView.swift in Sources */,
+				EBE1ECC329D73F9400DAB0B0 /* UserUpdateRequest.swift in Sources */,
 				EB9CB17E29D5EB1F0002596C /* ChatView.swift in Sources */,
 				EBE1ECB429D64A4400DAB0B0 /* Extensions.swift in Sources */,
 				EBE1ECB229D6481B00DAB0B0 /* Classes.swift in Sources */,
+				EBE1ECBD29D720FA00DAB0B0 /* ChatDetailView.swift in Sources */,
 				EB9CB18029D5EB270002596C /* ProfileView.swift in Sources */,
 				EB9CB18229D5F1B00002596C /* Enums.swift in Sources */,
+				EBE1ECB629D71D0C00DAB0B0 /* NetworkService.swift in Sources */,
 				EBC6262629D324D200828166 /* testChatApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

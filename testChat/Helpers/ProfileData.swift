@@ -1,5 +1,5 @@
 //
-//  ProfileDataEntity.swift
+//  ProfileData.swift
 //  testChat
 //
 //  Created by Artour Ilyasov on 30.03.2023.
@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - ProfileData
 struct ProfileData: Codable {
     let profileData: UserProfile
 
@@ -16,7 +15,6 @@ struct ProfileData: Codable {
     }
 }
 
-// MARK: - ProfileDataClass
 struct UserProfile: Codable {
     let name: String
     let username: String
@@ -41,7 +39,6 @@ struct UserProfile: Codable {
     }
 }
 
-// MARK: - Avatars
 struct Avatars: Codable {
     let avatar, bigAvatar, miniAvatar: String
 }
