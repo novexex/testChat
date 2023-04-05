@@ -10,24 +10,22 @@ import SwiftUI
 struct ChatDetailView: View {
     let chat: Chat
     @State private var entryMessage = ""
-    private let messages = [
-        "Привет!",
-        "Как дела?",
-        "У меня все хорошо, а у тебя?",
-        "У меня тоже все отлично!",
-        "Как проходит день?",
-        "День проходит нормально, но я устал.",
-        "Понимаю. Ты что-нибудь интересное делал сегодня?",
-        "Да, я был на прогулке в парке. Было очень красиво.",
-        "Звучит здорово! Я тоже люблю гулять в парке.",
-        "Давай в следующий раз пойдем вместе!",
+    @State private var messages = [
+        "Hello!",
+        "How are you?",
+        "I'm fine, and you?",
+        "I'm fine too!",
+        "How your day is going?",
+        "The day is going fine, but I'm tired.",
+        "I see. Did you do anything interesting today?",
+        "Yes, I was on a walk in the park. It was very beautiful.",
+        "That sounds great! I love walking in the park, too.",
+        "Let's go together next time!",
     ]
     
     var body: some View {
         VStack {
-            
             Spacer()
-            
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     ForEach(Array(messages.enumerated()), id: \.1) { index, message in
@@ -40,7 +38,6 @@ struct ChatDetailView: View {
                 }
             }
             .padding()
-            
 
             HStack {
                 TextField("Enter your message", text: $entryMessage)
@@ -50,34 +47,19 @@ struct ChatDetailView: View {
                         .stroke(Color.gray, lineWidth: 1))
                     .padding(10)
                     .padding(.trailing, -10)
-                Image(systemName: "arrow.up.circle.fill")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-                    .padding(.trailing, 10)
+                Button {
+                    messages.append(entryMessage)
+                    entryMessage = ""
+                } label: {
+                    Image(systemName: "arrow.up.circle.fill")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .padding(.trailing, 10)
+                }
             }
             .frame(height: 4)
             .padding(.bottom, 30)
             .background(Color.clear)
         }
-    }
-}
-
-struct ChatDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatDetailView(chat: Chat(id: 10, title: "Title", image: "", lastMessage: "Last message"))
-    }
-}
-
-struct MessageView: View {
-    let message: String
-    let isMyMessage: Bool
-
-    var body: some View {
-        Text(message)
-            .padding(10)
-            .background(isMyMessage ? Color.blue.opacity(0.8) : Color.gray.opacity(0.2))
-            .foregroundColor(isMyMessage ? .white : .black)
-            .cornerRadius(10)
-            .frame(maxWidth: .infinity, alignment: isMyMessage ? .trailing : .leading)
     }
 }

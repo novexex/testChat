@@ -24,6 +24,7 @@ struct ChatView: View {
         NavigationView {
             VStack {
                 List(chats) { chat in
+                    // hidding array with zstack
                     ZStack(alignment: .leading) {
                         NavigationLink(destination: ChatDetailView(chat: chat)) {
                             EmptyView()
@@ -54,11 +55,5 @@ struct ChatView: View {
             .navigationTitle("Chats")
             .navigationBarTitleDisplayMode(.inline)
         }
-    }
-}
-
-struct ChatView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatView()
     }
 }

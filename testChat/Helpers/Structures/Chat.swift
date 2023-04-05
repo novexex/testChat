@@ -1,11 +1,9 @@
 //
-//  Structures.swift
+//  Chat.swift
 //  testChat
 //
-//  Created by Artour Ilyasov on 31.03.2023.
+//  Created by Artour Ilyasov on 06.04.2023.
 //
-
-import SwiftUI
 
 struct Chat: Identifiable {
     let id: Int

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConfirmationCodeView: View {
     @State private var registrationView = false
-    @State private var code: String = "133337"
+    @State private var code = "133337"
     @State private var isRegistration = false
     @State private var isAuth = false
     var phoneNumber: String

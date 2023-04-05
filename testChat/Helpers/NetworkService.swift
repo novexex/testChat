@@ -19,16 +19,19 @@ class NetworkService {
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
+            if let error {
+                print("checkAuthCode")
                 print("Error: \(error)")
                 return
             }
             guard let data, let response = response as? HTTPURLResponse else {
+                print("checkAuthCode")
                 print("Invalid data or response")
                 return
             }
             if response.statusCode == 200 { // successs response
                 guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                    print("checkAuthCode")
                     print("Invalid data format")
                     return
                 }
@@ -59,26 +62,30 @@ class NetworkService {
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
+            if let error {
+                print("registerUser")
+                print("Error: \(error.localizedDescription)")
                 return
             }
             guard let data, let response = response as? HTTPURLResponse else {
+                print("registerUser")
                 print("Invalid data or response")
                 return
             }
             if response.statusCode == 201 { // successs response
                 guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                    print("registerUser")
                     print("Invalid data format")
                     return
                 }
                 let refreshToken = jsonData["refresh_token"] as? String
                 let accessToken = jsonData["access_token"] as? String
                 self.saveTokens(refreshToken, accessToken)
-                
+                print("registerUser")
                 print("User successfuly registered")
                 completion(response.statusCode)
             } else { // error response
+                print("registerUser")
                 print("Status code: \(response.statusCode)")
                 completion(response.statusCode)
             }
@@ -102,17 +109,24 @@ class NetworkService {
             let requestBody = try JSONEncoder().encode(user)
             request.httpBody = requestBody
         } catch {
+            print("putProfileView")
             print("Error encoding user update request: \(error)")
             return
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
+            if let error {
+                print("putProfileView")
                 print("Error: \(error.localizedDescription)")
                 return
             }
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 { // if not successful response
+                print("putProfileView")
                 print(httpResponse.statusCode)
+            }
+            if let data {
+                // didnt get json header
+                print(data)
             }
         }.resume()
     }

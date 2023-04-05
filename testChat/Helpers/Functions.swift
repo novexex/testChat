@@ -5,7 +5,6 @@
 //  Created by Artour Ilyasov on 29.03.2023.
 //
 
-import Foundation
 import PhoneNumberKit
 
 func validateName(_ name: String) -> Bool {
@@ -40,11 +39,12 @@ func getDate(_ stringDate: String) -> Date {
     return dateOfBirth
 }
 
-//func getDate(_ date: Date) -> String {
-//    let dateFormatter = DateFormatter()
-//    dateFormatter.dateFormat = "dd.MM.yyyy"
-//    return dateFormatter.string(from: date)
-//}
+func getDate(_ date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    
+    return dateFormatter.string(from: date)
+}
 
 func getZodiacSign(_ stringDate: String) -> String {
     let dateOfBirth = getDate(stringDate)
@@ -54,31 +54,30 @@ func getZodiacSign(_ stringDate: String) -> String {
     let day = calendar.component(.day, from: dateOfBirth)
     switch month {
     case 1:
-        return day <= 19 ? "Capricorn" : "Aquarius"
+        return day <= 19 ? "(Capricorn)" : "(Aquarius)"
     case 2:
-        return day <= 18 ? "Aquarius" : "Fish"
+        return day <= 18 ? "(Aquarius)" : "(Fish)"
     case 3:
-        return day <= 20 ? "Fish" : "Aries"
+        return day <= 20 ? "(Fish)" : "(Aries)"
     case 4:
-        return day <= 19 ? "Aries" : "Taurus"
+        return day <= 19 ? "(Aries)" : "(Taurus)"
     case 5:
-        return day <= 20 ? "Taurus" : "Gemini"
+        return day <= 20 ? "(Taurus)" : "(Gemini)"
     case 6:
-        return day <= 20 ? "Gemini" : "Cancer"
+        return day <= 20 ? "(Gemini)" : "(Cancer)"
     case 7:
-        return day <= 22 ? "Cancer" : "Leo"
+        return day <= 22 ? "(Cancer)" : "(Leo)"
     case 8:
-        return day <= 22 ? "Leo" : "Virgo"
+        return day <= 22 ? "(Leo)" : "(Virgo)"
     case 9:
-        return day <= 22 ? "Virgo" : "Scales"
+        return day <= 22 ? "(Virgo)" : "(Scales)"
     case 10:
-        return day <= 22 ? "Scales" : "Scorpio"
+        return day <= 22 ? "(Scales)" : "(Scorpio)"
     case 11:
-        return day <= 21 ? "Scorpio" : "Sagittarius"
+        return day <= 21 ? "(Scorpio)" : "(Sagittarius)"
     case 12:
-        return day <= 21 ? "Sagittarius" : "Capricorn"
+        return day <= 21 ? "(Sagittarius)" : "(Capricorn)"
     default:
         return ""
     }
 }
-

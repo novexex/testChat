@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserViewModel: ObservableObject {
+class UserObject: ObservableObject {
     @Published var user: UserProfile?
     
     func fetchUser() {

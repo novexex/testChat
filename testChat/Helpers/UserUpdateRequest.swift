@@ -5,12 +5,10 @@
 //  Created by Artour Ilyasov on 31.03.2023.
 //
 
-import Foundation
-
 struct UserUpdateRequest: Encodable {
     let name: String
     let username: String
-    let birthday: Date?
+    let birthday: String?
     let city: String?
     let vk: String?
     let instagram: String?

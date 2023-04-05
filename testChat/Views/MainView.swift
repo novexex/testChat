@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @ObservedObject var userViewModel = UserViewModel()
+    @ObservedObject var userObject = UserObject()
     
     var body: some View {
         TabView {
@@ -17,7 +17,7 @@ struct MainView: View {
                 .tabItem {
                     Label("Chat", systemImage: "message")
                 }
-            ProfileView(user: userViewModel.user)
+            ProfileView(userObject: userObject)
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle")
                 }
@@ -25,6 +25,6 @@ struct MainView: View {
     }
     
     init() {
-        userViewModel.fetchUser()
+        userObject.fetchUser()
     }
 }

@@ -16,21 +16,21 @@ struct ProfileData: Codable {
 }
 
 struct UserProfile: Codable {
-    let name: String
-    let username: String
-    let birthday: String?
-    let city: String?
-    let vk: String?
-    let instagram: String?
-    let status: String?
-    let avatar: String?
-    let id: Int
-    let last: Date?
-    let online: Bool
-    let created: Date?
-    let phone: String
-    let completedTask: Int?
-    let avatars: Avatars?
+    var name: String
+    var username: String
+    var birthday: String?
+    var city: String?
+    var vk: String?
+    var instagram: String?
+    var status: String?
+    var avatar: String?
+    var id: Int
+    var last: Date?
+    var online: Bool
+    var created: Date?
+    var phone: String
+    var completedTask: Int?
+    var avatars: Avatars?
 
     enum CodingKeys: String, CodingKey {
         case name, username, birthday, city, vk, instagram, status, avatar, id, last, online, created, phone

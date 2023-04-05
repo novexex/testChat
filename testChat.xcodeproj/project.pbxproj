@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		268CF5067DB685D0CDB16114 /* Pods_testChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4587A4952E7FC3E2D14CE10E /* Pods_testChat.framework */; };
+		EB36DBF629DE299F00692311 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB36DBF529DE299F00692311 /* Chat.swift */; };
+		EB36DBF829DE29D600692311 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB36DBF729DE29D600692311 /* MessageView.swift */; };
+		EB36DBFA29DE2A0100692311 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB36DBF929DE2A0100692311 /* ImagePicker.swift */; };
 		EB9CB17829D4BCE90002596C /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9CB17729D4BCE90002596C /* RegistrationView.swift */; };
 		EB9CB17C29D5EAF30002596C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9CB17B29D5EAF30002596C /* MainView.swift */; };
 		EB9CB17E29D5EB1F0002596C /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9CB17D29D5EB1F0002596C /* ChatView.swift */; };
@@ -19,10 +22,9 @@
 		EBC6262829D324D200828166 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC6262729D324D200828166 /* AuthorizationView.swift */; };
 		EBC6262A29D324D400828166 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC6262929D324D400828166 /* Assets.xcassets */; };
 		EBC6262D29D324D400828166 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC6262C29D324D400828166 /* Preview Assets.xcassets */; };
-		EBE1ECB229D6481B00DAB0B0 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECB129D6481B00DAB0B0 /* Classes.swift */; };
+		EBE1ECB229D6481B00DAB0B0 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECB129D6481B00DAB0B0 /* UserObject.swift */; };
 		EBE1ECB429D64A4400DAB0B0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECB329D64A4400DAB0B0 /* Extensions.swift */; };
 		EBE1ECB629D71D0C00DAB0B0 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECB529D71D0C00DAB0B0 /* NetworkService.swift */; };
-		EBE1ECBB29D720C100DAB0B0 /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECBA29D720C100DAB0B0 /* Structures.swift */; };
 		EBE1ECBD29D720FA00DAB0B0 /* ChatDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECBC29D720FA00DAB0B0 /* ChatDetailView.swift */; };
 		EBE1ECBF29D7216600DAB0B0 /* ConfirmationCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECBE29D7216600DAB0B0 /* ConfirmationCodeView.swift */; };
 		EBE1ECC129D7273200DAB0B0 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE1ECC029D7273200DAB0B0 /* EditProfileView.swift */; };
@@ -45,6 +47,9 @@
 		4587A4952E7FC3E2D14CE10E /* Pods_testChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		470B656EF317C12F0385EC26 /* Pods-testChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testChat.release.xcconfig"; path = "Target Support Files/Pods-testChat/Pods-testChat.release.xcconfig"; sourceTree = "<group>"; };
 		E5F9B381F0724045E488B0B1 /* Pods-testChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testChat.debug.xcconfig"; path = "Target Support Files/Pods-testChat/Pods-testChat.debug.xcconfig"; sourceTree = "<group>"; };
+		EB36DBF529DE299F00692311 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		EB36DBF729DE29D600692311 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		EB36DBF929DE2A0100692311 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		EB9CB17729D4BCE90002596C /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		EB9CB17B29D5EAF30002596C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EB9CB17D29D5EB1F0002596C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
@@ -57,10 +62,9 @@
 		EBC6262729D324D200828166 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		EBC6262929D324D400828166 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBC6262C29D324D400828166 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		EBE1ECB129D6481B00DAB0B0 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
+		EBE1ECB129D6481B00DAB0B0 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		EBE1ECB329D64A4400DAB0B0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EBE1ECB529D71D0C00DAB0B0 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		EBE1ECBA29D720C100DAB0B0 /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
 		EBE1ECBC29D720FA00DAB0B0 /* ChatDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailView.swift; sourceTree = "<group>"; };
 		EBE1ECBE29D7216600DAB0B0 /* ConfirmationCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationCodeView.swift; sourceTree = "<group>"; };
 		EBE1ECC029D7273200DAB0B0 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				EBE1ECBC29D720FA00DAB0B0 /* ChatDetailView.swift */,
 				EBE1ECBE29D7216600DAB0B0 /* ConfirmationCodeView.swift */,
 				EBE1ECC029D7273200DAB0B0 /* EditProfileView.swift */,
+				EB36DBF729DE29D600692311 /* MessageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -139,16 +144,25 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		EB36DBF429DE299000692311 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				EB36DBF529DE299F00692311 /* Chat.swift */,
+				EB36DBF929DE2A0100692311 /* ImagePicker.swift */,
+			);
+			path = Structures;
+			sourceTree = "<group>";
+		};
 		EBC47C6B29D486270022383F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				EB36DBF429DE299000692311 /* Structures */,
 				EBC47C6C29D4862E0022383F /* Functions.swift */,
 				EB9CB18129D5F1B00002596C /* Enums.swift */,
 				EB9CB18629D5FFF50002596C /* ProfileData.swift */,
-				EBE1ECB129D6481B00DAB0B0 /* Classes.swift */,
+				EBE1ECB129D6481B00DAB0B0 /* UserObject.swift */,
 				EBE1ECB329D64A4400DAB0B0 /* Extensions.swift */,
 				EBE1ECB529D71D0C00DAB0B0 /* NetworkService.swift */,
-				EBE1ECBA29D720C100DAB0B0 /* Structures.swift */,
 				EBE1ECC229D73F9400DAB0B0 /* UserUpdateRequest.swift */,
 			);
 			path = Helpers;
@@ -350,16 +364,18 @@
 			files = (
 				EB9CB17829D4BCE90002596C /* RegistrationView.swift in Sources */,
 				EBC6262829D324D200828166 /* AuthorizationView.swift in Sources */,
+				EB36DBF629DE299F00692311 /* Chat.swift in Sources */,
 				EBE1ECC129D7273200DAB0B0 /* EditProfileView.swift in Sources */,
 				EBE1ECBF29D7216600DAB0B0 /* ConfirmationCodeView.swift in Sources */,
-				EBE1ECBB29D720C100DAB0B0 /* Structures.swift in Sources */,
 				EBC47C6D29D4862E0022383F /* Functions.swift in Sources */,
 				EB9CB18729D5FFF50002596C /* ProfileData.swift in Sources */,
+				EB36DBFA29DE2A0100692311 /* ImagePicker.swift in Sources */,
 				EB9CB17C29D5EAF30002596C /* MainView.swift in Sources */,
 				EBE1ECC329D73F9400DAB0B0 /* UserUpdateRequest.swift in Sources */,
 				EB9CB17E29D5EB1F0002596C /* ChatView.swift in Sources */,
 				EBE1ECB429D64A4400DAB0B0 /* Extensions.swift in Sources */,
-				EBE1ECB229D6481B00DAB0B0 /* Classes.swift in Sources */,
+				EBE1ECB229D6481B00DAB0B0 /* UserObject.swift in Sources */,
+				EB36DBF829DE29D600692311 /* MessageView.swift in Sources */,
 				EBE1ECBD29D720FA00DAB0B0 /* ChatDetailView.swift in Sources */,
 				EB9CB18029D5EB270002596C /* ProfileView.swift in Sources */,
 				EB9CB18229D5F1B00002596C /* Enums.swift in Sources */,

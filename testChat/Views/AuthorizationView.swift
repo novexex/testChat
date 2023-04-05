@@ -26,7 +26,7 @@ struct AuthorizationView: View {
             .overlay(RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray, lineWidth: 1))
             
-            // field where we enter phone number
+            // phone number entry field
             TextField("Phone Number", text: $phoneNumber)
                 .keyboardType(.phonePad)
                 .padding()
@@ -65,13 +65,5 @@ struct AuthorizationView: View {
         .sheet(isPresented: $isConfirmationCodePresented) {
             ConfirmationCodeView(phoneNumber: phoneNumber)
         }
-    }
-}
-
-
-
-struct AuthorizationView_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthorizationView()
     }
 }

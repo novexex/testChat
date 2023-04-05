@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    
     var phoneNumber: String
     @State private var text = ""
     @State private var username = ""
@@ -20,6 +19,7 @@ struct RegistrationView: View {
     var body: some View {
         VStack {
             ZStack(alignment: .leading) {
+                // phone number label
                 if text.isEmpty {
                     Text(phoneNumber)
                         .foregroundColor(.black)
@@ -28,7 +28,7 @@ struct RegistrationView: View {
                         .padding()
                         .padding(.bottom, -25)
                 }
-                
+                // stroke for phone number label
                 TextField("", text: $text)
                     .font(.custom("Roboto-Light", size: 18))
                     .accentColor(.black)
@@ -40,6 +40,7 @@ struct RegistrationView: View {
                     .disabled(true)
             }
             
+            // username text field
             TextField("Enter your username", text: $username)
                 .font(.custom("Roboto-Light", size: 18))
                 .padding()
@@ -47,6 +48,7 @@ struct RegistrationView: View {
                     .stroke(Color.gray, lineWidth: 1))
                 .padding()
             
+            // name text field
             TextField("Enter your name", text: $name)
                 .font(.custom("Roboto-Light", size: 18))
                 .padding()
@@ -55,6 +57,7 @@ struct RegistrationView: View {
                 .padding()
                 .padding(.top, -25)
             
+            // register button
             Button("Register") {
                 var validation = 0
                 
@@ -126,10 +129,3 @@ struct RegistrationView: View {
         .padding()
     }
 }
-
-struct RegistrationView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegistrationView(phoneNumber: "+79053768859")
-    }
-}
-
