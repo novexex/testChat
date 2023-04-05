@@ -3,10 +3,11 @@ import PhoneNumberKit
 import Combine
 
 struct AuthorizationView: View {
-    @State private var selectedCountry = Locale.current.regionCode ?? "RU"
+    @State private var selectedCountry = Locale.current.regionCode ?? "US"
     @State private var phoneNumber = ""
     @State private var showingAlert = false
-    @State var isConfirmationCodePresented = false
+    @State var presentingConfirmationCodeView = false
+    
     private let phoneNumberKit = PhoneNumberKit()
     lazy var partialFormatter = PartialFormatter(phoneNumberKit: PhoneNumberKit(), defaultRegion: selectedCountry)
     
@@ -18,10 +19,6 @@ struct AuthorizationView: View {
                     let country = Locale.current.localizedString(forRegionCode: countryCode)
                     Text(countryFlag(_: countryCode) + " " + (country ?? ""))
                 }
-            }
-            .onChange(of: selectedCountry) { country in
-                guard let countryCode = phoneNumberKit.countryCode(for: country) else { return }
-                phoneNumber = "+" + String(countryCode)
             }
             .overlay(RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray, lineWidth: 1))
@@ -38,11 +35,13 @@ struct AuthorizationView: View {
             
             // log in button
             Button {
-                phoneNumber = format(phoneNumber: self.phoneNumber)
-                if phoneNumber.isEmpty {
+                let countryCode = phoneNumber
+                let formattedPhoneNumber = format(phoneNumber)
+                if formattedPhoneNumber.isEmpty {
                     showingAlert = true
+                    phoneNumber = countryCode
                 } else {
-                    self.sendAuthCode(self.phoneNumber)
+                    sendAuthCode(formattedPhoneNumber)
                 }
             } label: {
                 Text("Log in")
@@ -62,7 +61,7 @@ struct AuthorizationView: View {
             guard let countryCode = phoneNumberKit.countryCode(for: selectedCountry) else { return }
             phoneNumber = "+" + String(countryCode)
         }
-        .sheet(isPresented: $isConfirmationCodePresented) {
+        .sheet(isPresented: $presentingConfirmationCodeView) {
             ConfirmationCodeView(phoneNumber: phoneNumber)
         }
     }

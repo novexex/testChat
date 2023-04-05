@@ -1,8 +1,8 @@
 //
-//  Extensions.swift
+//  NetworkExtensions.swift
 //  testChat
 //
-//  Created by Artour Ilyasov on 31.03.2023.
+//  Created by Artour Ilyasov on 06.04.2023.
 //
 
 import Foundation
@@ -25,22 +25,10 @@ extension AuthorizationView {
                 return
             }
             if response.statusCode == 201 { // successs response
-                isConfirmationCodePresented = true
+                presentingConfirmationCodeView = true
             } else {  // error response
                 print("Status code: \(response.statusCode)")
             }
         }.resume()
     }
-    
-    func countryFlag(_ countryCode: String) -> String {
-        let flagBase = UnicodeScalar("🇦").value - UnicodeScalar("A").value
-        let flag = countryCode
-            .uppercased()
-            .unicodeScalars
-            .compactMap({ UnicodeScalar(flagBase + $0.value)?.description })
-            .joined()
-        
-        return flag
-    }
 }
-

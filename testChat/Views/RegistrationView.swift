@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    var phoneNumber: String
+    let phoneNumber: String
+    
     @State private var text = ""
     @State private var username = ""
     @State private var name = ""
@@ -99,6 +100,7 @@ struct RegistrationView: View {
                     showAlert = true
                 }
             }
+            .font(.custom("Roboto-Medium", size: 20))
             .padding()
             .overlay(RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray, lineWidth: 1))

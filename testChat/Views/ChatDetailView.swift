@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatDetailView: View {
     let chat: Chat
+    
     @State private var entryMessage = ""
     @State private var messages = [
         "Hello!",
@@ -38,9 +39,11 @@ struct ChatDetailView: View {
                 }
             }
             .padding()
+            .padding(.top, -23)
 
             HStack {
                 TextField("Enter your message", text: $entryMessage)
+                    .font(.custom("Roboto-Light", size: 18))
                     .frame(height: 18)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 10)
@@ -58,7 +61,7 @@ struct ChatDetailView: View {
                 }
             }
             .frame(height: 4)
-            .padding(.bottom, 30)
+            .padding(.bottom, 26)
             .background(Color.clear)
         }
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @ObservedObject var userObject: UserObject
+    @ObservedObject var userObject: NetworkObject
     @State private var isEdit = false
     
     var body: some View {
@@ -25,10 +25,10 @@ struct ProfileView: View {
                 // name, nickname and phone number
                 VStack(spacing: 10) {
                     Text(userObject.user?.name ?? "")
-                            .font(.custom("Roboto-Bold", size: 28))
+                        .font(.custom("Roboto-Bold", size: 28))
                     Text("@\(userObject.user?.username ?? "")")
                         .font(.custom("Roboto-Regular", size: 20))
-                    Text(format(phoneNumber: userObject.user?.phone ?? ""))
+                    Text(format(userObject.user?.phone ?? ""))
                         .font(.custom("Roboto-Bold", size: 20))
                         .foregroundColor(.gray)
                 }
@@ -72,6 +72,7 @@ struct ProfileView: View {
                 Button("Edit") {
                     isEdit = true
                 }
+                .font(.custom("Roboto-Regular", size: 16))
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray, lineWidth: 1))

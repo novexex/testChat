@@ -13,6 +13,7 @@ struct MessageView: View {
 
     var body: some View {
         Text(message)
+            .font(.custom("Roboto-Regular", size: 18))
             .padding(10)
             .background(isMyMessage ? Color.blue.opacity(0.8) : Color.gray.opacity(0.2))
             .foregroundColor(isMyMessage ? .white : .black)
@@ -20,3 +21,4 @@ struct MessageView: View {
             .frame(maxWidth: .infinity, alignment: isMyMessage ? .trailing : .leading)
     }
 }
+

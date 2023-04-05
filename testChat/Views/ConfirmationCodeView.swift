@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ConfirmationCodeView: View {
-    @State private var registrationView = false
+    let phoneNumber: String
+    
     @State private var code = "133337"
     @State private var isRegistration = false
     @State private var isAuth = false
-    var phoneNumber: String
+    @State private var showingAlert = false
     
     var body: some View {
         ZStack {
-            Color(.white).ignoresSafeArea()
             VStack {
                 Text("Enter confirmation code")
                     .font(.custom("Roboto-Light", size: 25))
@@ -32,15 +32,15 @@ struct ConfirmationCodeView: View {
                     .padding(.bottom, 10)
                 
                 Button(action: {
-                    if code.count != 6 || !code.allSatisfy({ $0.isNumber }) {
-                        return
-                    }
-                    
-                    NetworkService.checkAuthCode(phoneNumber, code) { response in
-                        if response {
-                            isAuth = true
-                        } else {
-                            isRegistration = true
+                    if code != "133337" {
+                        showingAlert = true
+                    } else {
+                        NetworkService.checkAuthCode(phoneNumber, code) { response in
+                            if response {
+                                isAuth = true
+                            } else {
+                                isRegistration = true
+                            }
                         }
                     }
                     
@@ -51,14 +51,19 @@ struct ConfirmationCodeView: View {
                         .overlay(RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.gray, lineWidth: 1))
                 }
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Error"),
+                          message: Text("Incorrect confirmation code"),
+                          dismissButton: .default(Text("OK")))
+                }
                 .fullScreenCover(isPresented: $isRegistration) {
                     RegistrationView(phoneNumber: phoneNumber)
                 }
                 .fullScreenCover(isPresented: $isAuth) {
                     MainView()
                 }
-                
-            }.padding()
+            }
+            .padding()
         }
     }
 }

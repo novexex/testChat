@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    
-    @ObservedObject var userObject = UserObject()
+    @ObservedObject var userObject = NetworkObject()
     
     var body: some View {
         TabView {

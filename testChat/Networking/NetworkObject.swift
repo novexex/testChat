@@ -1,5 +1,5 @@
 //
-//  Classes.swift
+//  NetworkObject.swift
 //  testChat
 //
 //  Created by Artour Ilyasov on 31.03.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserObject: ObservableObject {
+class NetworkObject: ObservableObject {
     @Published var user: UserProfile?
     
     func fetchUser() {
