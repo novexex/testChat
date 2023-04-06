@@ -8,9 +8,29 @@
 import Foundation
 
 class NetworkService {
+    static func getRequest(url: String) -> URLRequest? {
+        guard let url = URL(string: url) else { return nil }
+        return URLRequest(url: url)
+    }
+    
+    static func getBearerAccessToken() -> String {
+        guard let accessToken = UserDefaults.standard.string(forKey: "access_token") else { return "" }
+        return "Bearer " + accessToken
+    }
+    
+    static func getBearerRefreshToken() -> String {
+        guard let refreshToken = UserDefaults.standard.string(forKey: "refresh_token") else { return "" }
+        return "Bearer " + refreshToken
+    }
+    
+    // TODO: Storing tokens in user defaults is not very secure
+    static func saveTokens(_ refreshToken: String?, _ accessToken: String?) {
+        UserDefaults.standard.set(refreshToken, forKey: "refresh_token")
+        UserDefaults.standard.set(accessToken, forKey: "access_token")
+    }
+    
     static func checkAuthCode(_ phoneNumber: String, _ code: String, completion: @escaping (Bool) -> Void) {
-        guard let url = URL(string: "https://plannerok.ru/api/v1/users/check-auth-code/") else { return }
-        var request = URLRequest(url: url)
+        guard var request = getRequest(url: "https://plannerok.ru/api/v1/users/check-auth-code/") else { return }
         request.httpMethod = "POST"
         let body = [
             "phone": phoneNumber,
@@ -38,6 +58,7 @@ class NetworkService {
                 let refreshToken = jsonData["refresh_token"] as? String
                 let accessToken = jsonData["access_token"] as? String
                 let isUserExists = jsonData["is_user_exists"] as? Bool
+                
                 if isUserExists == true { // user is registered
                     self.saveTokens(refreshToken, accessToken)
                     completion(true)
@@ -45,14 +66,14 @@ class NetworkService {
                     completion(false)
                 }
             } else { // error response
+                print("checkAuthCode")
                 print("Status code: \(response.statusCode)")
             }
         }.resume()
     }
     
     static func registerUser(_ phone: String, _ name: String, _ username: String, completion: @escaping (Int) -> Void) {
-        guard let url = URL(string: "https://plannerok.ru/api/v1/users/register/") else { return }
-        var request = URLRequest(url: url)
+        guard var request = getRequest(url: "https://plannerok.ru/api/v1/users/register/") else { return }
         request.httpMethod = "POST"
         let body = [
             "phone": phone,
@@ -84,22 +105,17 @@ class NetworkService {
                 print("registerUser")
                 print("User successfuly registered")
                 completion(response.statusCode)
+            } else if response.statusCode == 422 || response.statusCode == 201 { // validation error response
+                completion(response.statusCode)
             } else { // error response
                 print("registerUser")
                 print("Status code: \(response.statusCode)")
-                completion(response.statusCode)
             }
         }.resume()
     }
     
-    static func saveTokens(_ refreshToken: String?, _ accessToken: String?) {
-        UserDefaults.standard.set(refreshToken, forKey: "refresh_token")
-        UserDefaults.standard.set(accessToken, forKey: "access_token")
-    }
-    
     static func putProfileView(user: UserUpdateRequest) {
-        guard let url = URL(string: "https://plannerok.ru/api/v1/users/me/") else { return }
-        var request = URLRequest(url: url)
+        guard var request = getRequest(url: "https://plannerok.ru/api/v1/users/me/") else { return }
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let bearerToken = NetworkService.getBearerAccessToken()
@@ -120,19 +136,93 @@ class NetworkService {
                 print("Error: \(error.localizedDescription)")
                 return
             }
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 { // if not successful response
+            guard let data, let response = response as? HTTPURLResponse else {
                 print("putProfileView")
-                print(httpResponse.statusCode)
+                print("Invalid data or response")
+                return
             }
-            if let data {
+            if response.statusCode == 200  { // success response
                 // didnt get json header
                 print(data)
+            } else if response.statusCode == 401 { // access token expired response
+                refreshToken { token in
+                    if token {
+                        putProfileView(user: user)
+                    }
+                }
+            } else { // if not success response
+                print("putProfileView")
+                print(response.statusCode)
             }
         }.resume()
     }
     
-    static func getBearerAccessToken() -> String {
-        guard let accessToken = UserDefaults.standard.string(forKey: "access_token") else { return "" }
-        return "Bearer " + accessToken
+    static func refreshToken(completion: @escaping (Bool) -> Void) {
+        guard var request = getRequest(url: "https://plannerok.ru/api/v1/users/refresh-token/") else { return }
+        request.httpMethod = "POST"
+        request.setValue(getBearerRefreshToken(), forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error {
+                print("refreshToken")
+                print("Error: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            guard let data, let response = response as? HTTPURLResponse else {
+                print("refreshToken")
+                print("Invalid data or response")
+                completion(false)
+                return
+            }
+            if response.statusCode == 200 { // successs response
+                guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                    print("refreshToken")
+                    print("Invalid data format")
+                    completion(false)
+                    return
+                }
+                let newRefreshToken = jsonData["refresh_token"] as? String
+                let newAccessToken = jsonData["access_token"] as? String
+                saveTokens(newRefreshToken, newAccessToken)
+                completion(true)
+            } else { // error response
+                print("refreshToken")
+                print("Status code: \(response.statusCode)")
+                completion(false)
+            }
+        }.resume()
+    }
+    
+    static func checkJWT() {
+        guard var request = getRequest(url: "https://plannerok.ru/api/v1/users/check-jwt/") else { return }
+        request.httpMethod = "GET"
+        request.setValue(getBearerAccessToken(), forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error {
+                print("checkJWT")
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            guard let data, let response = response as? HTTPURLResponse else {
+                print("checkJWT")
+                print("Invalid data or response")
+                return
+            }
+            if response.statusCode == 200 { // successs response
+                do {
+                    let message = try JSONDecoder().decode(String.self, from: data)
+                    print(message)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else if response.statusCode == 401 {  // access token expired response
+                refreshToken { tokens in
+                    checkJWT()
+                }
+            } else { // error response
+                print("checkJWT")
+                print("Status code: \(response.statusCode)")
+            }
+        }.resume()
     }
 }

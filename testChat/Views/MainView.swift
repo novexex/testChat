@@ -25,5 +25,6 @@ struct MainView: View {
     
     init() {
         userObject.fetchUser()
+        NetworkService.checkJWT()
     }
 }

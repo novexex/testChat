@@ -5,8 +5,6 @@
 //  Created by Artour Ilyasov on 31.03.2023.
 //
 
-import Foundation
-
 extension AuthorizationView {
     func countryFlag(_ countryCode: String) -> String {
         let flagBase = UnicodeScalar("🇦").value - UnicodeScalar("A").value
@@ -15,7 +13,6 @@ extension AuthorizationView {
             .unicodeScalars
             .compactMap({ UnicodeScalar(flagBase + $0.value)?.description })
             .joined()
-        
         return flag
     }
 }
