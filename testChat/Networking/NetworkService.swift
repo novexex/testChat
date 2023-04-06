@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyJWT
 
 class NetworkService {
     static func getRequest(url: String) -> URLRequest? {
@@ -210,8 +211,8 @@ class NetworkService {
             }
             if response.statusCode == 200 { // successs response
                 do {
-                    let message = try JSONDecoder().decode(String.self, from: data)
-                    print(message)
+                    let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(jsonResponse)
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -224,5 +225,5 @@ class NetworkService {
                 print("Status code: \(response.statusCode)")
             }
         }.resume()
-    }
+    }    
 }
