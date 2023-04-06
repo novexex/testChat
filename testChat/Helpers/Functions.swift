@@ -23,15 +23,11 @@ func getDate(_ stringDate: String) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"
     guard let dateOfBirth = dateFormatter.date(from: stringDate) else { return Date() }
-    
     return dateOfBirth
 }
 
 func getDate(_ date: Date) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"
-    
     return dateFormatter.string(from: date)
 }
-
-

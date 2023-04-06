@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension AuthorizationView {    
+extension AuthorizationView {
     func countryFlag(_ countryCode: String) -> String {
         let flagBase = UnicodeScalar("🇦").value - UnicodeScalar("A").value
         let flag = countryCode
@@ -19,4 +19,3 @@ extension AuthorizationView {
         return flag
     }
 }
-

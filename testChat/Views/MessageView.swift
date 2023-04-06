@@ -10,7 +10,7 @@ import SwiftUI
 struct MessageView: View {
     let message: String
     let isMyMessage: Bool
-
+    
     var body: some View {
         Text(message)
             .font(.custom("Roboto-Regular", size: 18))

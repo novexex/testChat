@@ -40,7 +40,7 @@ struct ChatDetailView: View {
             }
             .padding()
             .padding(.top, -23)
-
+            
             HStack {
                 TextField("Enter your message", text: $entryMessage)
                     .font(.custom("Roboto-Light", size: 18))
