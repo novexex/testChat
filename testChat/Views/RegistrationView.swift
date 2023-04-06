@@ -1,5 +1,5 @@
 //
-//  Regis.swift
+//  RegistrationView.swift
 //  testChat
 //
 //  Created by Artour Ilyasov on 29.03.2023.
